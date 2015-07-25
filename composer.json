@@ -1,5 +1,5 @@
 {
-    "name": "strontium/doctrine-specification-bundle",
+    "name": "strontium/specification-bundle",
     "type": "symfony-bundle",
     "description": " ",
     "keywords": [
@@ -14,15 +14,18 @@
     ],
     "autoload": {
         "psr-4": {
-            "Strontium\\DoctrineSpecificationBundle\\": ""
+            "Strontium\\SpecificationBundle\\": ""
         }
     },
     "require": {
         "php": ">=5.4",
-        "happyr/doctrine-specification": "^0.6@stable"
+        "happyr/doctrine-specification": "^0.6@stable",
+        "symfony/framework-bundle":      "^2.3",
+        "symfony/form":                  "^2.5",
+        "symfony/expression-language":   "^2.5"
     },
     "require-dev": {
-
+        "phpspec/phpspec":           "~2.2"
     },
     "suggest": {},
     "scripts": {},

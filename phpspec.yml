@@ -1,0 +1,5 @@
+suites:
+    spec-bundle:
+        namespace: Strontium\SpecificationBundle
+        psr4_prefix: Strontium\SpecificationBundle
+        spec_prefix: spec

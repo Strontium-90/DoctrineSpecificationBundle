@@ -1,0 +1,19 @@
+parameters:
+    strontium.specification.builder.class: Strontium\SpecificationBundle\Builder\SpecificationBuilder
+    strontium.expression_language.provider.specification.class: Strontium\SpecificationBundle\ExpressionLanguage\SpecificationLanguageProvider
+services:
+    strontium.specification.builder:
+        class: %strontium.specification.builder.class%
+
+    specification.builder:
+        alias: strontium.specification.builder
+
+    specification.registry:
+        class: Sylius\Component\Registry\ServiceRegistry
+        arguments:
+            - Happyr\DoctrineSpecification\Specification\Specification
+
+    strontium.expression_language.provider.specification:
+        class: %strontium.expression_language.provider.specification.class%
+        arguments:
+            - @strontium.specification.builder

@@ -1,0 +1,20 @@
+parameters:
+    strontium.form.type_extension.specification.class: Strontium\SpecificationBundle\Form\Extension\SpecificationFromTypeExtension
+services:
+    strontium.form.type_extension.specification:
+        class: %strontium.form.type_extension.specification.class%
+        arguments:
+            - @strontium.specification.builder
+        tags:
+            - { name: form.type_extension, alias: form }
+
+    strontium.form.type.resource_filter:
+         class: Strontium\SpecificationBundle\Form\Type\ResourceFilterType
+         tags:
+            - { name: form.type, alias: strontium_resource_filter }
+
+    strontium.form.type_extension.test_spec:
+        class: Strontium\SpecificationBundle\Form\Type\TestSpec
+        tags:
+            - { name: form.type, alias: test_spec }
+
