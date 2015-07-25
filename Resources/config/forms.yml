@@ -1,0 +1,12 @@
+parameters:
+    strontium.form.type_extension.specification.class:
+services:
+    strontium.type.resource_filter:
+         class: Travian\ResourceBundle\Form\Type\ResourceFilterType
+         tags:
+            - { name: form.type, alias: autocrm_resource_filter }
+
+    strontium.form.type_extension.specification:
+        class: %strontium.form.type_extension.specification.class%
+        tags:
+            - { name: form.type_extension, alias: form }

@@ -1,6 +1,8 @@
 <?php
 namespace Strontium\DoctrineSpecificationBundle\ExpressionLanguage;
 
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
+
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
  */
@@ -14,7 +16,7 @@ class ExpressionLanguage extends BaseExpressionLanguage
         parent::registerFunctions();
 
         $this->register(
-            'date',
+            'spec',
             function ($date) {
                 return sprintf('(new \DateTime(%s))', $date);
             },
