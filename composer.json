@@ -1,0 +1,34 @@
+{
+    "name": "strontium/doctrine-specification-bundle",
+    "type": "symfony-bundle",
+    "description": " ",
+    "keywords": [
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleksey Bannov",
+            "email": "a.s.bannov@gmail.com",
+            "homepage": "https://github.com/Strontium-90"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Strontium\\DoctrineSpecificationBundle\\": ""
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "happyr/doctrine-specification": "^0.6@stable"
+    },
+    "require-dev": {
+
+    },
+    "suggest": {},
+    "scripts": {},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
