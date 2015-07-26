@@ -51,9 +51,9 @@ class SpecificationTransformerSpec extends ObjectBehavior
 
         $spec = Spec::eq('name', 'foo');
         $specificationBuilder->spec('eq', ['name', 'foo'])
-                             ->willReturn($spec);
+                             ->willReturn(clone $spec);
 
-        $this->reverseTransform('foo')->shouldReturn($spec);
+        $this->reverseTransform('foo')->shouldBeLike($spec);
     }
 
     function it_should_throw_transformation_failed_exception(SpecificationBuilderInterface $specificationBuilder)

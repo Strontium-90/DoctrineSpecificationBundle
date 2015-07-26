@@ -3,3 +3,5 @@ suites:
         namespace: Strontium\SpecificationBundle
         psr4_prefix: Strontium\SpecificationBundle
         spec_prefix: spec
+        spec_path: ./
+        src_path: ./
