@@ -3,7 +3,6 @@ namespace Strontium\SpecificationBundle\ExpressionLanguage;
 
 use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
 use Sylius\Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
-use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
 
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
