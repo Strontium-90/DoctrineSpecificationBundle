@@ -17,7 +17,7 @@ class RegisterSpecificationPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('specification') as $id => $attributes) {
             if (!isset($attributes[0]['alias'])) {
-                throw new \InvalidArgumentException('Tagged specification must have `alias`  attribute.');
+                throw new \InvalidArgumentException('Tagged specification must have `alias` attribute.');
             }
             $registry->addMethodCall('registerSpecification', array($attributes[0]['alias'], new Reference($id)));
         }
