@@ -16,10 +16,10 @@ class RegisterSpecificationPass implements CompilerPassInterface
         $registry = $container->getDefinition('strontium.specification.builder');
 
         foreach ($container->findTaggedServiceIds('specification') as $id => $attributes) {
-            if (!isset($attributes[0]['name'])) {
-                throw new \InvalidArgumentException('Tagged specificaton needs to have `name`  attribute.');
+            if (!isset($attributes[0]['alias'])) {
+                throw new \InvalidArgumentException('Tagged specificaton needs to have `alias`  attribute.');
             }
-            $registry->addMethodCall('registerSpecification', array($attributes[0]['name'], new Reference($id)));
+            $registry->addMethodCall('registerSpecification', array($attributes[0]['alias'], new Reference($id)));
         }
 
         if ($container->hasDefinition('sylius.expression_language')) {
