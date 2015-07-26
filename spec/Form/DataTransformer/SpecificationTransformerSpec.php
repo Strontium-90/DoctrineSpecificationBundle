@@ -50,10 +50,19 @@ class SpecificationTransformerSpec extends ObjectBehavior
         $this->beConstructedWith('eq', $specificationBuilder, ['name']);
 
         $spec = Spec::eq('name', 'foo');
-
         $specificationBuilder->spec('eq', ['name', 'foo'])
                              ->willReturn($spec);
 
         $this->reverseTransform('foo')->shouldReturn($spec);
+    }
+
+    function it_should_throw_transformation_failed_exception(SpecificationBuilderInterface $specificationBuilder)
+    {
+        $this->beConstructedWith('eq', $specificationBuilder);
+
+        $specificationBuilder->spec()->willThrow(new \Exception('fake exception'));
+
+        $this->shouldThrow('Symfony\Component\Form\Exception\TransformationFailedException')
+             ->duringReverseTransform('foo');
     }
 }
