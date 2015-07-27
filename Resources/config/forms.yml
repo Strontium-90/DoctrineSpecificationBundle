@@ -12,9 +12,3 @@ services:
          class: Strontium\SpecificationBundle\Form\Type\ResourceFilterType
          tags:
             - { name: form.type, alias: strontium_resource_filter }
-
-    strontium.form.type_extension.test_spec:
-        class: Strontium\SpecificationBundle\Form\Type\TestSpec
-        tags:
-            - { name: form.type, alias: test_spec }
-

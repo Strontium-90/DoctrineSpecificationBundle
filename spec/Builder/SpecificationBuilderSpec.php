@@ -48,4 +48,9 @@ class SpecificationBuilderSpec extends ObjectBehavior
         $this->spec('name_equal', ['some_name'])
              ->shouldBeLike(new NameEqual('some_name'));
     }
+
+    function it_should_trow_exception_if_spec_does_not_exists(){
+        $this->shouldThrow('InvalidArgumentException')
+             ->duringSpec('unknown_spec');
+    }
 }

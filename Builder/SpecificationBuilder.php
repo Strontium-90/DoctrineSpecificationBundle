@@ -63,6 +63,8 @@ class SpecificationBuilder implements SpecificationBuilderInterface
 
             return $spec;
         }
+
+        throw new \InvalidArgumentException(sprintf('Specification "%s" does not exists', $name));
     }
 
     /**

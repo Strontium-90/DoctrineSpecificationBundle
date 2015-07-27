@@ -8,11 +8,6 @@ services:
     specification.builder:
         alias: strontium.specification.builder
 
-    specification.registry:
-        class: Sylius\Component\Registry\ServiceRegistry
-        arguments:
-            - Happyr\DoctrineSpecification\Specification\Specification
-
     strontium.expression_language.provider.specification:
         class: %strontium.expression_language.provider.specification.class%
         arguments:
