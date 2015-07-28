@@ -26,7 +26,7 @@ class ComparisonBuilder implements SpecificationBuilderInterface
     /**
      * @inheritDoc
      */
-    public function buildSpecification(SpecificationFactory $factory, array $options)
+    public function buildSpecification(SpecificationFactory $spec, array $options)
     {
         return new Comparison($this->operator, $options['field'], $options['value'], $options['dql_alias']);
     }
