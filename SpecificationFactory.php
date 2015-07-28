@@ -1,7 +1,6 @@
 <?php
 namespace Strontium\SpecificationBundle;
 
-use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use Strontium\SpecificationBundle\Exception\NotExistingSpecificationException;
@@ -11,13 +10,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
  *
- * @method Filter eq(array $options)
- * @method Filter neq(array $options)
- * @method Filter lt(array $options)
- * @method Filter lte(array $options)
- * @method Filter gt(array $options)
- * @method Filter gte(array $options)
- * @method Filter like(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter eq(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter neq(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter lt(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter lte(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter gt(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter gte(array $options)
+ * @method \Happyr\DoctrineSpecification\Filter\Filter like(array $options)
  *
  */
 class SpecificationFactory

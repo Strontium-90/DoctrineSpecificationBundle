@@ -2,8 +2,7 @@
     "name":        "strontium/specification-bundle",
     "type":        "symfony-bundle",
     "description": " ",
-    "keywords":    [
-    ],
+    "keywords":    ["Symfony","Doctrine", "DDD", "Specification", "form", "filter"],
     "license":     "MIT",
     "authors":     [
         {
