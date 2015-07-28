@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ResourceFilterType extends AbstractType
+class ResourceSpecificationType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -42,6 +42,6 @@ class ResourceFilterType extends AbstractType
      */
     public function getName()
     {
-        return 'resource_filter';
+        return 'resource_specification';
     }
 }

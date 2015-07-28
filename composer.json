@@ -1,8 +1,17 @@
 {
     "name":        "strontium/specification-bundle",
     "type":        "symfony-bundle",
-    "description": " ",
-    "keywords":    ["Symfony","Doctrine", "DDD", "Specification", "form", "filter"],
+    "description": "Specification-pattern in Doctrine and Symfony 2 framework",
+    "keywords":    [
+        "Symfony",
+        "Doctrine",
+        "DDD",
+        "Specification",
+        "Specification-pattern",
+        "form",
+        "filter",
+        "Domain Driven Design"
+    ],
     "license":     "MIT",
     "authors":     [
         {

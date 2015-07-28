@@ -1,5 +1,7 @@
 parameters:
     strontium.form.type_extension.specification.class: Strontium\SpecificationBundle\Form\Extension\SpecificationFromTypeExtension
+    strontium.form.type.resource_specification.class: Strontium\SpecificationBundle\Form\Type\ResourceSpecificationType
+
 services:
     strontium.form.type_extension.specification:
         class: %strontium.form.type_extension.specification.class%
@@ -8,7 +10,7 @@ services:
         tags:
             - { name: form.type_extension, alias: form }
 
-    strontium.form.type.resource_filter:
-         class: Strontium\SpecificationBundle\Form\Type\ResourceFilterType
+    strontium.form.type.resource_specification:
+         class: %strontium.form.type.resource_specification.class%
          tags:
-            - { name: form.type, alias: strontium_resource_filter }
+            - { name: form.type, alias: resource_specification }

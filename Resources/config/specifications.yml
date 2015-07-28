@@ -1,44 +1,45 @@
 parameters:
+    strontium.specification.builder.comparison.class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
 
 services:
     strontium.specification.eq:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '=' ]
         tags:
             - { name: specification, alias: eq }
 
     strontium.specification.neq:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '<>' ]
         tags:
             - { name: specification, alias: neq }
 
     strontium.specification.lt:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '<' ]
         tags:
             - { name: specification, alias: lt }
 
     strontium.specification.lte:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '<=' ]
         tags:
             - { name: specification, alias: lte }
 
     strontium.specification.gt:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '>' ]
         tags:
             - { name: specification, alias: gt }
 
     strontium.specification.gte:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ '>=' ]
         tags:
             - { name: specification, alias: gte }
 
     strontium.specification.like:
-        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        class: %strontium.specification.builder.comparison.class%
         arguments: [ 'LIKE' ]
         tags:
             - { name: specification, alias: like }

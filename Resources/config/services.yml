@@ -1,7 +1,7 @@
 parameters:
     strontium.specification.registry.class: Sylius\Component\Registry\ServiceRegistry
     strontium.specification.factory.class: Strontium\SpecificationBundle\SpecificationFactory
-    strontium.expression_language.provider.specification.class: Strontium\SpecificationBundle\ExpressionLanguage\SpecificationLanguageProvider
+
 services:
     strontium.specification.registry:
         class: %strontium.specification.registry.class%
@@ -15,8 +15,3 @@ services:
 
     specification.factory:
         alias: strontium.specification.factory
-
-    strontium.expression_language.provider.specification:
-        class: %strontium.expression_language.provider.specification.class%
-        arguments:
-            - @strontium.specification.factory
