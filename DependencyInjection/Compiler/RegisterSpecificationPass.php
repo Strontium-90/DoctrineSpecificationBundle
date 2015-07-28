@@ -21,15 +21,5 @@ class RegisterSpecificationPass implements CompilerPassInterface
             }
             $registry->addMethodCall('register', array($attributes[0]['alias'], new Reference($id)));
         }
-
-        if ($container->hasDefinition('sylius.expression_language')) {
-            $container->getDefinition('sylius.expression_language')
-                /* ->addMethodCall(
-                     'registerProvider',
-                     [new Reference('strontium.expression_language.provider.specification')]
-                 )*/
-                    ->setClass('Strontium\SpecificationBundle\ExpressionLanguage\SpecificationLanguage')
-                      ->addMethodCall('setSpecificationBuilder', [new Reference('strontium.specification.factory')]);
-        }
     }
 }

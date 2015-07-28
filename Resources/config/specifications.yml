@@ -36,3 +36,9 @@ services:
         arguments: [ '>=' ]
         tags:
             - { name: specification, alias: gte }
+
+    strontium.specification.like:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ 'LIKE' ]
+        tags:
+            - { name: specification, alias: like }

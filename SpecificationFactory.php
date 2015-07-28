@@ -9,7 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
  *
- * @method Filter eq(int $int1, int $int2)
+ * @method Filter eq(array $options)
+ * @method Filter neq(array $options)
+ * @method Filter lt(array $options)
+ * @method Filter lte(array $options)
+ * @method Filter gt(array $options)
+ * @method Filter gte(array $options)
+ * @method Filter like(array $options)
+ *
  */
 class SpecificationFactory
 {
@@ -32,31 +39,17 @@ class SpecificationFactory
      *
      * @return Specification
      */
-    public function create($name, array $options = [])
-    {
-        $builder = $this->registry->get($name);
-
-        $optionResolver = new OptionsResolver();
-        $optionResolver
-            ->setDefined(['dql_alias'])
-            ->setDefaults(['dql_alias' => null]);
-        $builder->configureOptions($optionResolver);
-        $options = $optionResolver->resolve($options);
-
-        return $builder->buildSpecification($this, $options);
-    }
-
-
-    /**
-     * @param string $name
-     * @param array  $options
-     *
-     * @return Specification
-     */
-    public function __call($name, array $options)
+    public function __call($name, array $arguments)
     {
         if ($this->registry->has($name)) {
             $builder = $this->registry->get($name);
+
+            $optionResolver = new OptionsResolver();
+            $optionResolver
+                ->setDefined(['dql_alias'])
+                ->setDefaults(['dql_alias' => null]);
+            $builder->configureOptions($optionResolver);
+            $options = $optionResolver->resolve(isset($arguments[0]) ? $arguments[0] : []);
 
             return $builder->buildSpecification($this, $options);
         }
