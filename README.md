@@ -36,15 +36,8 @@ use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
 
 class OwnedByCurrentUser implements SpecificationBuilderInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
     protected $tokenStorage;
 
-    /**
-     * @param TokenStorageInterface $tokenStorage
-     * @return $this
-     */
     public function setContextManager(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
@@ -52,9 +45,6 @@ class OwnedByCurrentUser implements SpecificationBuilderInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildSpecification(SpecificationFactory $spec, array $options)
     {
         return $spec->eq([
@@ -64,9 +54,6 @@ class OwnedByCurrentUser implements SpecificationBuilderInterface
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
@@ -81,6 +68,7 @@ class OwnedByCurrentUser implements SpecificationBuilderInterface
 
 Register you builder by adding tag `specification`:
 ```yml
+    # services.yml
     my_app.specification.owned_by_current_user:
         class: MyApp\MyBundle\Specification\OwnedByCurrentUser
         arguments:
@@ -88,24 +76,24 @@ Register you builder by adding tag `specification`:
         tags:
             - { name: specification, alias: ownedByCurrentUser }
 
-``
+```
 
 Use it somewhere in your app
 
 ```php
-   class CommentController extends Controller
+class CommentController extends Controller
+{
+   public function indexAction(Request $request)
    {
-   
-       public function indexAction(Request $request)
-       {
-           $spec = $this->get('specification.factory')->ownedByCurrentUser();
-           
-           $comments = $this->getRepository()->match($spec);
-           
-           return [
-               'comments' => $comments
-           ];
-       }
+       $spec = $this->get('specification.factory')->ownedByCurrentUser();
+       
+       $comments = $this->getRepository()->match($spec);
+       
+       return [
+           'comments' => $comments
+       ];
+   }
+}   
 ```
 
 Or create other specification builders depends from it:
@@ -125,14 +113,10 @@ class NewCommentsOwnedByCurrentUser extends AbstractSpecificationBuilder
 ```
 
 You can use Specification filter form in you controllers.
-Firsts create FornType:
+Firsts create FormType:
 ```php
 class AppointmentChainFilterType extends AbstractType
 {
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -163,9 +147,6 @@ class AppointmentChainFilterType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -185,8 +166,11 @@ class AppointmentChainFilterType extends AbstractType
 } 
 ```
 
+Handle request by this form, get Specification instance!
 
 ```php
+class PostController
+{
     public function indexAction(Request $request)
     {
         $specFactory = $this->get('specification.factory');
@@ -200,4 +184,6 @@ class AppointmentChainFilterType extends AbstractType
         }
         $comments = $this->getRepository()->match($specification);  
         // ....
+    }
+}
 ```        
