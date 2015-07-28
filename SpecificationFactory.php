@@ -4,6 +4,7 @@ namespace Strontium\SpecificationBundle;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Specification\Specification;
+use Strontium\SpecificationBundle\Exception\NotExistingSpecificationException;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,26 +37,13 @@ class SpecificationFactory
 
     /**
      * @param string $name
-     * @param array  $options
+     * @param array  $arguments
      *
      * @return Specification
      */
     public function __call($name, array $arguments)
     {
-        if ($this->registry->has($name)) {
-            $builder = $this->registry->get($name);
-
-            $optionResolver = new OptionsResolver();
-            $optionResolver
-                ->setDefined(['dql_alias'])
-                ->setDefaults(['dql_alias' => null]);
-            $builder->configureOptions($optionResolver);
-            $options = $optionResolver->resolve(isset($arguments[0]) ? $arguments[0] : []);
-
-            return $builder->buildSpecification($this, $options);
-        }
-
-        trigger_error(sprintf('Call to undefined method %s::%s()', __CLASS__, $name), E_USER_ERROR);
+        return $this->createSpec($name, $arguments);
     }
 
     /**
@@ -75,7 +63,9 @@ class SpecificationFactory
     }
 
     /**
-     * @return LogicX
+     * @param array $childs
+     *
+     * @return mixed
      */
     public function andXArray(array $childs)
     {
@@ -83,10 +73,36 @@ class SpecificationFactory
     }
 
     /**
-     * @return LogicX
+     * @param array $childs
+     *
+     * @return mixed
      */
     public function orXArray(array $childs)
     {
         return call_user_func_array([$this, 'orX'], $childs);
+    }
+
+    /**
+     * @param       $name
+     * @param array $arguments
+     *
+     * @return mixed
+     */
+    public function createSpec($name, array $arguments)
+    {
+        if ($this->registry->has($name)) {
+            $builder = $this->registry->get($name);
+
+            $optionResolver = new OptionsResolver();
+            $optionResolver
+                ->setDefined(['dql_alias'])
+                ->setDefaults(['dql_alias' => null]);
+            $builder->configureOptions($optionResolver);
+            $options = $optionResolver->resolve(isset($arguments[0]) ? $arguments[0] : []);
+
+            return $builder->buildSpecification($this, $options);
+        }
+
+        throw new NotExistingSpecificationException($name);
     }
 }

@@ -3,8 +3,8 @@ namespace spec\Strontium\SpecificationBundle\Form\Extension;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
 use Strontium\SpecificationBundle\Form\Extension\SpecificationFromTypeExtension;
+use Strontium\SpecificationBundle\SpecificationFactory;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,9 +15,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SpecificationFromTypeExtensionSpec extends ObjectBehavior
 {
 
-    function let(SpecificationBuilderInterface $specificationBuilder)
+    function let(SpecificationFactory $specificationFactory)
     {
-        $this->beConstructedWith($specificationBuilder);
+        $this->beConstructedWith($specificationFactory);
     }
 
     function it_is_initializable()
@@ -30,7 +30,7 @@ class SpecificationFromTypeExtensionSpec extends ObjectBehavior
         $this->shouldImplement('Symfony\Component\Form\FormTypeExtensionInterface');
     }
 
-    function it_should_not_build_form_with_specification_transformers_if_its_empty(FormBuilderInterface $builder)
+    function it_should_add_model_transformers_if_specifaction_option_is_empty(FormBuilderInterface $builder)
     {
         $builder->addModelTransformer()->shouldNotBeCalled();
 
@@ -48,28 +48,32 @@ class SpecificationFromTypeExtensionSpec extends ObjectBehavior
             ->shouldBeCalled();
 
         $this->buildForm($builder, [
-            'specification'           => 'eq',
-            'specification_arguments' => ['name', 'o'],
+            'specification'            => 'eq',
+            'specification_options'    => ['field' => 'name'],
+            'specification_value_name' => 'value',
         ]);
     }
 
-    function it_should_configure_options_with_specification_and_arguments(OptionsResolver $resolver)
+    function it_should_configure_options(OptionsResolver $resolver)
     {
         $resolver
             ->setDefined([
                 'specification',
-                'specification_arguments',
+                'specification_options',
+                'specification_value_name',
             ])
             ->willReturn($resolver);
         $resolver
             ->setAllowedTypes([
-                'specification'           => ['string', 'callable'],
-                'specification_arguments' => 'array',
+                'specification'            => ['string', 'callable'],
+                'specification_options'    => 'array',
+                'specification_value_name' => 'string',
             ])
             ->willReturn($resolver);
         $resolver
             ->setDefaults([
-                'specification_arguments' => [],
+                'specification_options'    => [],
+                'specification_value_name' => 'value',
             ])
             ->willReturn($resolver);
 

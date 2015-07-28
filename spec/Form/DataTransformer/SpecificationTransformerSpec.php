@@ -3,8 +3,8 @@ namespace spec\Strontium\SpecificationBundle\Form\DataTransformer;
 
 use Happyr\DoctrineSpecification\Spec;
 use PhpSpec\ObjectBehavior;
-use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
 use Strontium\SpecificationBundle\Form\DataTransformer\SpecificationTransformer;
+use Strontium\SpecificationBundle\SpecificationFactory;
 
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
@@ -14,17 +14,22 @@ class SpecificationTransformerSpec extends ObjectBehavior
 {
     protected $closure;
 
-    function let(SpecificationBuilderInterface $specificationBuilder)
+    function let(SpecificationFactory $specificationFactory)
     {
         $this->closure = function ($value) {
             return Spec::eq('name', 'foo');
         };
-        $this->beConstructedWith($this->closure, $specificationBuilder, ['name']);
+        $this->beConstructedWith($this->closure, $specificationFactory, 'value', ['name']);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType('Strontium\SpecificationBundle\Form\DataTransformer\SpecificationTransformer');
+    }
+
+    function it_is_a_data_transformer()
+    {
+        $this->shouldImplement('Symfony\Component\Form\DataTransformerInterface');
     }
 
     function it_should_not_reverseTransform_empty_values()
@@ -34,33 +39,34 @@ class SpecificationTransformerSpec extends ObjectBehavior
         $this->reverseTransform([])->shouldReturn(null);
     }
 
-    function it_should_reverseTransform_value_by_closure(SpecificationBuilderInterface $specificationBuilder)
+    function it_should_reverseTransform_value_by_closure(SpecificationFactory $specificationFactory)
     {
         $this->beConstructedWith(
-            function ($value) {
+            function (SpecificationFactory $spec, $value) {
                 return Spec::eq('name', $value);
             },
-            $specificationBuilder
+            $specificationFactory,
+            'value'
         );
         $this->reverseTransform('foo')->shouldBeLike(Spec::eq('name', 'foo'));
     }
 
-    function it_should_reverseTransform_value_by_builder(SpecificationBuilderInterface $specificationBuilder)
+    function it_should_reverseTransform_value_by_builder(SpecificationFactory $specificationFactory)
     {
-        $this->beConstructedWith('eq', $specificationBuilder, ['name']);
+        $this->beConstructedWith('eq', $specificationFactory, 'value', ['field' => 'name']);
 
         $spec = Spec::eq('name', 'foo');
-        $specificationBuilder->spec('eq', ['name', 'foo'])
+        $specificationFactory->eq(['field' => 'name', 'value' => 'foo'])
                              ->willReturn(clone $spec);
 
         $this->reverseTransform('foo')->shouldBeLike($spec);
     }
 
-    function it_should_throw_transformation_failed_exception(SpecificationBuilderInterface $specificationBuilder)
+    function it_should_throw_transformation_failed_exception(SpecificationFactory $specificationFactory)
     {
-        $this->beConstructedWith('eq', $specificationBuilder);
+        $this->beConstructedWith('eq', $specificationFactory, 'value');
 
-        $specificationBuilder->spec()->willThrow(new \Exception('fake exception'));
+        $specificationFactory->eq()->willThrow(new \Exception('fake exception'));
 
         $this->shouldThrow('Symfony\Component\Form\Exception\TransformationFailedException')
              ->duringReverseTransform('foo');

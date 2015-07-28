@@ -33,7 +33,8 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
                 new SpecificationTransformer(
                     $options['specification'],
                     $this->specificationFactory,
-                    $options['specification_arguments']
+                    $options['specification_value_name'],
+                    $options['specification_options']
                 )
             );
         }
@@ -56,13 +57,16 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
             ->setDefined([
                 'specification',
                 'specification_options',
+                'specification_value_name',
             ])
             ->setAllowedTypes([
-                'specification'         => ['string', 'callable'],
-                'specification_options' => 'array',
+                'specification'            => ['string', 'callable'],
+                'specification_options'    => 'array',
+                'specification_value_name' => 'string',
             ])
             ->setDefaults([
-                'specification_options' => [],
+                'specification_options'    => [],
+                'specification_value_name' => 'value',
             ]);
     }
 

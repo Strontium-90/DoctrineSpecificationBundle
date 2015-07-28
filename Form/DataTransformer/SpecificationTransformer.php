@@ -23,15 +23,26 @@ class SpecificationTransformer implements DataTransformerInterface
     private $specificationFactory;
 
     /**
+     * @var string
+     */
+    private $valueName;
+
+    /**
      * @param string|callable      $callback
      * @param SpecificationFactory $specificationFactory
+     * @param string               $valueName
      * @param array                $arguments
      */
-    public function __construct($callback, SpecificationFactory $specificationFactory, array $arguments = null)
-    {
+    public function __construct(
+        $callback,
+        SpecificationFactory $specificationFactory,
+        $valueName,
+        array $arguments = []
+    ) {
         $this->callback = $callback;
         $this->arguments = $arguments;
         $this->specificationFactory = $specificationFactory;
+        $this->valueName = $valueName;
     }
 
     /**
@@ -53,11 +64,11 @@ class SpecificationTransformer implements DataTransformerInterface
 
         try {
             if (is_callable($this->callback)) {
-                return call_user_func($this->callback, [$this->specificationFactory, $value]);
+                return call_user_func_array($this->callback, [$this->specificationFactory, $value]);
             } else {
-                $arguments = !empty($this->arguments) ? array_merge($this->arguments, [$value]) : $value;
-
-                return $this->specificationFactory->{$this->callback}($arguments);
+                return $this->specificationFactory->{$this->callback}(
+                    array_merge($this->arguments, [$this->valueName => $value])
+                );
             }
         } catch (\Exception $e) {
             throw new TransformationFailedException(sprintf('Unable create specification: %s', $e->getMessage()));
