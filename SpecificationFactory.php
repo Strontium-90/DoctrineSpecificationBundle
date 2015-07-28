@@ -2,6 +2,7 @@
 namespace Strontium\SpecificationBundle;
 
 use Happyr\DoctrineSpecification\Filter\Filter;
+use Happyr\DoctrineSpecification\Logic\LogicX;
 use Happyr\DoctrineSpecification\Specification\Specification;
 use Sylius\Component\Registry\ServiceRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -55,5 +56,37 @@ class SpecificationFactory
         }
 
         trigger_error(sprintf('Call to undefined method %s::%s()', __CLASS__, $name), E_USER_ERROR);
+    }
+
+    /**
+     * @return LogicX
+     */
+    public function andX()
+    {
+        return new LogicX(LogicX::AND_X, func_get_args());
+    }
+
+    /**
+     * @return LogicX
+     */
+    public function orX()
+    {
+        return new LogicX(LogicX::OR_X, func_get_args());
+    }
+
+    /**
+     * @return LogicX
+     */
+    public function andXArray(array $childs)
+    {
+        return call_user_func_array([$this, 'andX'], $childs);
+    }
+
+    /**
+     * @return LogicX
+     */
+    public function orXArray(array $childs)
+    {
+        return call_user_func_array([$this, 'orX'], $childs);
     }
 }

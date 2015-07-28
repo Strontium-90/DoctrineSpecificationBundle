@@ -5,6 +5,7 @@ StrontiumSpecificationBundle
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/f7c99c8d-062d-4082-81dc-e9ba9281908e/mini.png)](https://insight.sensiolabs.com/projects/f7c99c8d-062d-4082-81dc-e9ba9281908e)
 
 Integraion of [Happyr/Doctrine-Specification](https://github.com/Happyr/Doctrine-Specification) into [Symfony 2](https://github.com/symfony/symfony) framework.
+
 Installation
 ------------
 Add composer dependency `composer require strontium/doctrine-specification-bundle`.
@@ -24,3 +25,7 @@ public function registerBundles()
 }
 
 ```
+
+Usage
+--------------
+Register

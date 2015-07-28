@@ -23,7 +23,7 @@
         "symfony/framework-bundle":      "^2.3",
         "symfony/form":                  "^2.5",
         "symfony/expression-language":   "^2.5",
-        "sylius/registry":               "^0.15"
+        "sylius/registry":               "^0.14"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.2"

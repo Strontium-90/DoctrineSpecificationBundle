@@ -19,11 +19,11 @@ class SpecificationBuilderSpec extends ObjectBehavior
         $this->beConstructedWith();
 
         $this
-            ->registerSpecification('isActive', function () {
+            ->register('isActive', function () {
                 return Spec::eq('active', true);
             })
-            ->registerSpecification('eq', ['Happyr\DoctrineSpecification\Spec', 'eq'])
-            ->registerSpecification('name_equal', 'Strontium\SpecificationBundle\spec\Fixture\NameEqual');
+            ->register('eq', ['Happyr\DoctrineSpecification\Spec', 'eq'])
+            ->register('name_equal', 'Strontium\SpecificationBundle\spec\Fixture\NameEqual');
     }
 
     function it_is_initializable()

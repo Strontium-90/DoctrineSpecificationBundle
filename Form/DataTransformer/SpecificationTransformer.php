@@ -53,10 +53,10 @@ class SpecificationTransformer implements DataTransformerInterface
 
         $arguments = !empty($this->arguments) ? array_merge($this->arguments, [$value]) : $value;
         try {
-            if (is_string($this->callback)) {
-                return $this->specificationFactory->create($this->callback, $arguments);
-            } else {
+            if (is_callable($this->callback)) {
                 return call_user_func($this->callback, $arguments);
+            } else {
+                return $this->specificationFactory->{$this->callback}($arguments);
             }
         } catch (\Exception $e) {
             throw new TransformationFailedException(sprintf('Unable create specification: %s', $e->getMessage()));
