@@ -187,3 +187,19 @@ class PostController
     }
 }
 ```        
+
+With some additions its possible to use [Sylius/ResoucreBundle](https://github.com/Sylius/SyliusResourceBundle) with specification. Resource routing config will look line this:
+
+```yml
+sylius_product_index:
+    path: /products/{tag}
+    methods: [GET]
+    defaults:
+        _controller: sylius.controller.product:indexAction
+        _sylius:
+            specification:
+                name: haveTag
+                options:
+                    tag: $tag
+            paginate: $limit
+``` 
