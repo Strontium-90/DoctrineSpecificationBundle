@@ -1,7 +1,6 @@
 <?php
 namespace Strontium\SpecificationBundle\Form\Extension;
 
-use Strontium\SpecificationBundle\Builder\SpecificationBuilder;
 use Strontium\SpecificationBundle\Form\DataTransformer\SpecificationTransformer;
 use Strontium\SpecificationBundle\SpecificationFactory;
 use Symfony\Component\Form\AbstractTypeExtension;
