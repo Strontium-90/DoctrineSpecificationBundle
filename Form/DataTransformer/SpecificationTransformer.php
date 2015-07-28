@@ -51,11 +51,12 @@ class SpecificationTransformer implements DataTransformerInterface
             return null;
         }
 
-        $arguments = !empty($this->arguments) ? array_merge($this->arguments, [$value]) : $value;
         try {
             if (is_callable($this->callback)) {
-                return call_user_func($this->callback, $arguments);
+                return call_user_func($this->callback, [$this->specificationFactory, $value]);
             } else {
+                $arguments = !empty($this->arguments) ? array_merge($this->arguments, [$value]) : $value;
+
                 return $this->specificationFactory->{$this->callback}($arguments);
             }
         } catch (\Exception $e) {

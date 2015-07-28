@@ -29,7 +29,7 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!empty($options['specification']) && null !== $options['specification']) {
+        if (!empty($options['specification'])) {
             $builder->addModelTransformer(
                 new SpecificationTransformer(
                     $options['specification'],
@@ -37,18 +37,6 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
                     $options['specification_arguments']
                 )
             );
-            /*if (is_callable($options['specification'])) {
-
-            } elseif (is_string($options['specification'])) {
-                if (!in_array($options['specification'], ['andX', 'orX'])) {
-                    throw new InvalidOptionsException(
-                        sprintf('Недопустимое значение спецификации, допустимые: andX, OrX')
-                    );
-                }
-                $builder->addModelTransformer(
-                    new CompoundSpecificationTransformer($options['specification'])
-                );
-            }*/
         }
     }
 
@@ -68,14 +56,14 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
         $resolver
             ->setDefined([
                 'specification',
-                'specification_arguments',
+                'specification_options',
             ])
             ->setAllowedTypes([
-                'specification'           => ['string', 'callable'],
-                'specification_arguments' => 'array',
+                'specification'         => ['string', 'callable'],
+                'specification_options' => 'array',
             ])
             ->setDefaults([
-                'specification_arguments' => [],
+                'specification_options' => [],
             ]);
     }
 
