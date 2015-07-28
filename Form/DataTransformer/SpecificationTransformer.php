@@ -1,7 +1,7 @@
 <?php
 namespace Strontium\SpecificationBundle\Form\DataTransformer;
 
-use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
+use Strontium\SpecificationBundle\SpecificationFactory;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -13,25 +13,25 @@ class SpecificationTransformer implements DataTransformerInterface
     protected $callback;
 
     /**
-     * @var SpecificationBuilderInterface
-     */
-    protected $specificationBuilder;
-
-    /**
      * @var array
      */
     protected $arguments;
 
     /**
-     * @param string|callable               $callback
-     * @param SpecificationBuilderInterface $specificationBuilder
-     * @param array                         $arguments
+     * @var
      */
-    public function __construct($callback, SpecificationBuilderInterface $specificationBuilder, array $arguments = null)
+    private $specificationFactory;
+
+    /**
+     * @param string|callable      $callback
+     * @param SpecificationFactory $specificationFactory
+     * @param array                $arguments
+     */
+    public function __construct($callback, SpecificationFactory $specificationFactory, array $arguments = null)
     {
         $this->callback = $callback;
-        $this->specificationBuilder = $specificationBuilder;
         $this->arguments = $arguments;
+        $this->specificationFactory = $specificationFactory;
     }
 
     /**
@@ -54,7 +54,7 @@ class SpecificationTransformer implements DataTransformerInterface
         $arguments = !empty($this->arguments) ? array_merge($this->arguments, [$value]) : $value;
         try {
             if (is_string($this->callback)) {
-                return $this->specificationBuilder->spec($this->callback, $arguments);
+                return $this->specificationFactory->create($this->callback, $arguments);
             } else {
                 return call_user_func($this->callback, $arguments);
             }

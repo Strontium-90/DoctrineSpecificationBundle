@@ -1,35 +1,36 @@
 {
-    "name": "strontium/specification-bundle",
-    "type": "symfony-bundle",
+    "name":        "strontium/specification-bundle",
+    "type":        "symfony-bundle",
     "description": " ",
-    "keywords": [
+    "keywords":    [
     ],
-    "license": "MIT",
-    "authors": [
+    "license":     "MIT",
+    "authors":     [
         {
-            "name": "Aleksey Bannov",
-            "email": "a.s.bannov@gmail.com",
+            "name":     "Aleksey Bannov",
+            "email":    "a.s.bannov@gmail.com",
             "homepage": "https://github.com/Strontium-90"
         }
     ],
-    "autoload": {
+    "autoload":    {
         "psr-4": {
             "Strontium\\SpecificationBundle\\": ""
         }
     },
-    "require": {
-        "php": ">=5.4",
+    "require":     {
+        "php":                           ">=5.4",
         "happyr/doctrine-specification": "^0.6@stable",
         "symfony/framework-bundle":      "^2.3",
         "symfony/form":                  "^2.5",
-        "symfony/expression-language":   "^2.5"
+        "symfony/expression-language":   "^2.5",
+        "sylius/registry":               "^0.15"
     },
     "require-dev": {
-        "phpspec/phpspec":           "~2.2"
+        "phpspec/phpspec": "~2.2"
     },
-    "extra": {
+    "extra":       {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         }
     }
 }

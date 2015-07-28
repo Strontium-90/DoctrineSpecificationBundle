@@ -15,14 +15,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('specification');
 
-        $rootNode
-            ->children()
-                ->arrayNode('specifications')
-                    ->useAttributeAsKey('name')
-                    ->prototype('variable')
-                ->end()
-            ->end();
-
         return $treeBuilder;
     }
 }

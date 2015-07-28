@@ -1,0 +1,38 @@
+parameters:
+
+services:
+    strontium.specification.eq:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '=' ]
+        tags:
+            - { name: specification, alias: eq }
+
+    strontium.specification.neq:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '<>' ]
+        tags:
+            - { name: specification, alias: neq }
+
+    strontium.specification.lt:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '<' ]
+        tags:
+            - { name: specification, alias: lt }
+
+    strontium.specification.lte:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '<=' ]
+        tags:
+            - { name: specification, alias: lte }
+
+    strontium.specification.gt:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '>' ]
+        tags:
+            - { name: specification, alias: gt }
+
+    strontium.specification.gte:
+        class: Strontium\SpecificationBundle\Builder\ComparisonBuilder
+        arguments: [ '>=' ]
+        tags:
+            - { name: specification, alias: gte }

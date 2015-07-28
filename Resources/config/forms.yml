@@ -4,7 +4,7 @@ services:
     strontium.form.type_extension.specification:
         class: %strontium.form.type_extension.specification.class%
         arguments:
-            - @strontium.specification.builder
+            - @strontium.specification.factory
         tags:
             - { name: form.type_extension, alias: form }
 

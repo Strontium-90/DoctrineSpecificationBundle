@@ -1,14 +1,22 @@
 parameters:
-    strontium.specification.builder.class: Strontium\SpecificationBundle\Builder\SpecificationBuilder
+    strontium.specification.registry.class: Sylius\Component\Registry\ServiceRegistry
+    strontium.specification.factory.class: Strontium\SpecificationBundle\SpecificationFactory
     strontium.expression_language.provider.specification.class: Strontium\SpecificationBundle\ExpressionLanguage\SpecificationLanguageProvider
 services:
-    strontium.specification.builder:
-        class: %strontium.specification.builder.class%
+    strontium.specification.registry:
+        class: %strontium.specification.registry.class%
+        arguments:
+            - Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface
 
-    specification.builder:
-        alias: strontium.specification.builder
+    strontium.specification.factory:
+        class: %strontium.specification.factory.class%
+        arguments:
+            - @strontium.specification.registry
+
+    specification.factory:
+        alias: strontium.specification.factory
 
     strontium.expression_language.provider.specification:
         class: %strontium.expression_language.provider.specification.class%
         arguments:
-            - @strontium.specification.builder
+            - @strontium.specification.factory

@@ -24,7 +24,7 @@ class ResourceFilterType extends AbstractType
             ->setDefaults([
                 'csrf_protection' => false,
             ])
-            ->setOptional([
+            ->setDefined([
                 'resource_repository',
                 'resource_specification',
             ])

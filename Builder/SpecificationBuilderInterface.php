@@ -2,7 +2,8 @@
 namespace Strontium\SpecificationBundle\Builder;
 
 use Happyr\DoctrineSpecification\Specification\Specification;
-
+use Strontium\SpecificationBundle\SpecificationFactory;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Aleksey Bannov <a.s.bannov@gmail.com>
@@ -11,34 +12,15 @@ interface SpecificationBuilderInterface
 {
 
     /**
-     * @param string $name
-     * @param array  $arguments
+     * @param SpecificationFactory $factory
+     * @param array                $options
      *
      * @return Specification
-     *
-     * @throws \InvalidArgumentException
      */
-    public function spec($name, array $arguments = null);
+    public function buildSpecification(SpecificationFactory $factory, array $options);
 
     /**
-     * @param string $name
-     * @param mixed  $definition
-     *
-     * @return $this
+     * @param OptionsResolver $resolver
      */
-    public function registerSpecification($name, $definition);
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function unregisterSpecification($name);
-
-    /**
-     * @param $name
-     *
-     * @return bool
-     */
-    public function hasSpecification($name);
+    public function configureOptions(OptionsResolver $resolver);
 }

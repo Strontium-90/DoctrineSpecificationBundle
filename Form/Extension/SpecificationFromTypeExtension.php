@@ -2,8 +2,8 @@
 namespace Strontium\SpecificationBundle\Form\Extension;
 
 use Strontium\SpecificationBundle\Builder\SpecificationBuilder;
-use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
 use Strontium\SpecificationBundle\Form\DataTransformer\SpecificationTransformer;
+use Strontium\SpecificationBundle\SpecificationFactory;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,16 +12,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class SpecificationFromTypeExtension extends AbstractTypeExtension
 {
     /**
-     * @var SpecificationBuilder
+     * @var SpecificationFactory
      */
-    protected $specificationBuilder;
+    private $specificationFactory;
 
     /**
-     * @param SpecificationBuilderInterface $specificationBuilder
+     * @param SpecificationFactory $specificationFactory
      */
-    public function __construct(SpecificationBuilderInterface $specificationBuilder)
+    public function __construct(SpecificationFactory $specificationFactory)
     {
-        $this->specificationBuilder = $specificationBuilder;
+        $this->specificationFactory = $specificationFactory;
     }
 
     /**
@@ -33,7 +33,7 @@ class SpecificationFromTypeExtension extends AbstractTypeExtension
             $builder->addModelTransformer(
                 new SpecificationTransformer(
                     $options['specification'],
-                    $this->specificationBuilder,
+                    $this->specificationFactory,
                     $options['specification_arguments']
                 )
             );

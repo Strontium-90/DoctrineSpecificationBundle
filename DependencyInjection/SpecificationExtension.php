@@ -20,10 +20,6 @@ class SpecificationExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('forms.yml');
-
-        $definition = $container->getDefinition('strontium.specification.builder');
-        foreach ($config['specifications'] as $name => $spec) {
-            $definition->addMethodCall('registerSpecification', [$name, $spec]);
-        }
+        $loader->load('specifications.yml');
     }
 }

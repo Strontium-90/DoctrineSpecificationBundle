@@ -1,7 +1,7 @@
 <?php
 namespace Strontium\SpecificationBundle\ExpressionLanguage;
 
-use Strontium\SpecificationBundle\Builder\SpecificationBuilderInterface;
+use Strontium\SpecificationBundle\SpecificationFactory;
 use Sylius\Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
 
 /**
@@ -10,21 +10,21 @@ use Sylius\Bundle\ResourceBundle\ExpressionLanguage\ExpressionLanguage as BaseEx
 class SpecificationLanguage extends BaseExpressionLanguage
 {
     /**
-     * @var SpecificationBuilderInterface
+     * @var SpecificationFactory
      */
-    protected $specificationBuilder;
+    protected $factory;
 
     /**
-     * @param SpecificationBuilderInterface $specificationBuilder
+     * @param SpecificationFactory $specificationBuilder
      */
-    public function setSpecificationBuilder(SpecificationBuilderInterface $specificationBuilder)
+    public function setSpecificationBuilder(SpecificationFactory $factory)
     {
-        $this->specificationBuilder = $specificationBuilder;
+        $this->factory = $factory;
     }
 
     public function evaluate($expression, $values = array())
     {
-        $values['spec'] = $this->specificationBuilder;
+        $values['spec'] = $this->factory;
 
         return parent::evaluate($expression, $values);
     }
