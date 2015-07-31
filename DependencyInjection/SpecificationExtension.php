@@ -5,9 +5,10 @@ namespace Strontium\SpecificationBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 
-class SpecificationExtension extends Extension
+class SpecificationExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -21,5 +22,17 @@ class SpecificationExtension extends Extension
         $loader->load('services.yml');
         $loader->load('forms.yml');
         $loader->load('specifications.yml');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function prepend(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('doctrine', array(
+            'orm' => array(
+                'default_repository_class' => 'Happyr\DoctrineSpecification\EntitySpecificationRepository',
+            )
+        ));
     }
 }
