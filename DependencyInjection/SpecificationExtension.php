@@ -29,6 +29,9 @@ class SpecificationExtension extends Extension implements PrependExtensionInterf
      */
     public function prepend(ContainerBuilder $container)
     {
+        if (!$container->hasExtension('doctrine')) {
+            return;
+        }
         $container->prependExtensionConfig('doctrine', array(
             'orm' => array(
                 'default_repository_class' => 'Happyr\DoctrineSpecification\EntitySpecificationRepository',
